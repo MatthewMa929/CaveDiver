@@ -1,0 +1,124 @@
+[gd_scene load_steps=10 format=3 uid="uid://cmy37se1eftx5"]
+
+[ext_resource type="PackedScene" uid="uid://bxrtem6odvnkt" path="res://Game/map.tscn" id="1_q1fyo"]
+[ext_resource type="PackedScene" uid="uid://dloyo66yjhorf" path="res://Game/code.tscn" id="2_b2qy3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5njku"]
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmm4g"]
+bg_color = Color(0.254902, 0.254902, 0.254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6cyi"]
+bg_color = Color(0.317647, 0.317647, 0.317647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_501k8"]
+bg_color = Color(0.317647, 0.317647, 0.317647, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_e8vuh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pqsvn"]
+bg_color = Color(0.454902, 0.658824, 0.494118, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfds6"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5njku")
+
+[node name="TextContainers" type="MarginContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 0
+
+[node name="Rows" type="VBoxContainer" parent="Background/TextContainers"]
+layout_mode = 2
+theme_override_constants/separation = 35
+
+[node name="TitlePanel" type="MarginContainer" parent="Background/TextContainers/Rows"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/TextContainers/Rows/TitlePanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vmm4g")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/TextContainers/Rows/TitlePanel/PanelContainer"]
+layout_mode = 2
+theme_override_constants/text_highlight_h_padding = 10
+theme_override_font_sizes/normal_font_size = 30
+text = "                             Point A"
+
+[node name="BodyPanel" type="PanelContainer" parent="Background/TextContainers/Rows"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h6cyi")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/TextContainers/Rows/BodyPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 270
+theme_override_constants/margin_bottom = 50
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/TextContainers/Rows/BodyPanel/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_501k8")
+
+[node name="StaticText" type="RichTextLabel" parent="Background/TextContainers/Rows/BodyPanel/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/line_separation = 10
+theme_override_fonts/normal_font = SubResource("SystemFont_e8vuh")
+theme_override_font_sizes/normal_font_size = 16
+text = "\"I don't get it, there shouldn't be anyone else down here.\"
+You stare at the picture you recieved, still in disbelief.
+
+Tommy's voice crackles through the speaker, his urgency palpable.
+\"Well I know what I saw, and now you see it too. I'm going to go down there.\" 
+There was a short pause, before Tommy spoke again.
+\"I have to do this, but just making sure, I won't get fired for this right? If anything happens, you could just write, 'got lost' in your report couldn't you?\" 
+He chuckes, clearly trying to lighten the mood.
+
+"
+
+[node name="PictureContainers" type="MarginContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/margin_left = 850
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/PictureContainers"]
+layout_mode = 2
+theme_override_constants/separation = 35
+
+[node name="PanelContainer2" type="PanelContainer" parent="Background/PictureContainers/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pqsvn")
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/PictureContainers/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gfds6")
+
+[node name="Map" parent="." instance=ExtResource("1_q1fyo")]
+visible = false
+position = Vector2(83, 127)
+
+[node name="Code" parent="." instance=ExtResource("2_b2qy3")]
+position = Vector2(279, 40)

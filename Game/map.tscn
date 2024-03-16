@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxrtem6odvnkt"]
+
+[ext_resource type="Texture2D" uid="uid://d2u0j62devwui" path="res://Sprites/cave_prototype.png" id="1_i03dm"]
+
+[node name="Map" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(373.5, 223)
+scale = Vector2(1.46289, 0.871094)
+texture = ExtResource("1_i03dm")

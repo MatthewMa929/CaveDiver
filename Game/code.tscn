@@ -9,32 +9,13 @@
 script = ExtResource("1_v3vvd")
 
 [node name="CodeBar" type="Sprite2D" parent="."]
+z_index = -1
 position = Vector2(296, 25)
 texture = ExtResource("1_u1tad")
 
 [node name="LitBar" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(75, 25)
-texture = ExtResource("2_3f0ko")
-
-[node name="LitBar2" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(175, 25)
-texture = ExtResource("2_3f0ko")
-
-[node name="LitBar3" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(274, 25)
-texture = ExtResource("2_3f0ko")
-
-[node name="LitBar4" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(374, 25)
-texture = ExtResource("2_3f0ko")
-
-[node name="LitBar5" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(475, 25)
 texture = ExtResource("2_3f0ko")
 
 [node name="XBar" type="Sprite2D" parent="."]

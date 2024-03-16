@@ -121,4 +121,5 @@ visible = false
 position = Vector2(83, 127)
 
 [node name="Code" parent="." instance=ExtResource("2_b2qy3")]
+z_index = 1
 position = Vector2(279, 40)

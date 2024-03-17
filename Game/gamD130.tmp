@@ -61,7 +61,6 @@ theme_override_constants/text_highlight_h_padding = 10
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "[center]Point A[/center]"
-scroll_active = false
 
 [node name="BodyPanel" type="PanelContainer" parent="Background/TextContainers/TextPanels"]
 custom_minimum_size = Vector2(0, 450)
@@ -90,7 +89,6 @@ There was a short pause, before Tommy spoke again.
 He chuckes, clearly trying to lighten the mood.
 
 "
-scroll_following = true
 
 [node name="PictureContainers" type="MarginContainer" parent="Background"]
 layout_mode = 2
@@ -112,14 +110,3 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_pqsvn")
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gfds6")
-
-[node name="TextTimer" type="Timer" parent="."]
-wait_time = 0.035
-autostart = true
-
-[node name="DotTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[connection signal="timeout" from="TextTimer" to="." method="_on_text_timer_timeout"]
-[connection signal="timeout" from="DotTimer" to="." method="_on_dot_timer_timeout"]

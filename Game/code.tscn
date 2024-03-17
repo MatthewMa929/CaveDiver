@@ -1,27 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dloyo66yjhorf"]
+[gd_scene load_steps=2 format=3 uid="uid://dloyo66yjhorf"]
 
-[ext_resource type="Texture2D" uid="uid://bx5jt1ttajgps" path="res://Sprites/code_bar.png" id="1_u1tad"]
 [ext_resource type="Script" path="res://Game/code.gd" id="1_v3vvd"]
-[ext_resource type="Texture2D" uid="uid://crg4rmiwrvv3e" path="res://Sprites/code_bar_lit.png" id="2_3f0ko"]
-[ext_resource type="Texture2D" uid="uid://bw8jx8yobvpio" path="res://Sprites/code_bar_x.png" id="4_namnn"]
 
 [node name="Code" type="Node2D"]
 script = ExtResource("1_v3vvd")
-
-[node name="CodeBar" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(296, 25)
-texture = ExtResource("1_u1tad")
-
-[node name="LitBar" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(75, 25)
-texture = ExtResource("2_3f0ko")
-
-[node name="XBar" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(75, 25)
-texture = ExtResource("4_namnn")
 
 [node name="CodeBarTimer" type="Timer" parent="."]
 

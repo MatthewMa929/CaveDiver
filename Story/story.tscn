@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://th16pgoey6cn"]
+
+[ext_resource type="Script" path="res://Story/StoryNode.gd" id="1_415g8"]
+
+[node name="Story" type="Node"]
+script = ExtResource("1_415g8")
+text = "What kind of relocation is this…
+You step into a run down room with generic company posters, random boxes and a computer.
+You sigh, but resign yourself to your new position. “I had guessed I was getting demoted, but this is just ridiculous.” 
+Taking a seat in front of the old computer, you wait for your shift to officially start while you take sips of your coffee. 
+Suddenly the computer makes a bleep noise.
+“Hi, hello, is anyone there?”"
+choices = Array[String](["Introduce yourself"])
+
+[node name="Intro" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "“Hi, this is Sandra, your new supervisor. Could this be Tommy?”
+“Ah yeah that's me. I’m glad you’re here early. Last guy I was assigned with was an hour late. Not hard to tell why he was replaced.\""
+choices = Array[String](["Get to business (skip intro)", "Ask for details"])

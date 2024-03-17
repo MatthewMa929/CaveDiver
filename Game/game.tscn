@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmy37se1eftx5"]
+[gd_scene load_steps=12 format=3 uid="uid://cmy37se1eftx5"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_kwjqk"]
+[ext_resource type="PackedScene" uid="uid://th16pgoey6cn" path="res://Story/story.tscn" id="2_j8fbq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5njku"]
 bg_color = Color(0.0862745, 0.0980392, 0.145098, 1)
@@ -19,17 +20,19 @@ bg_color = Color(0.454902, 0.658824, 0.494118, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfds6"]
 bg_color = Color(0.854902, 0.823529, 0.737255, 1)
 
-[node name="Game" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hk222"]
+bg_color = Color(0.45098, 0.596078, 0.87451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_766o5"]
+bg_color = Color(0.45098, 0.596078, 0.87451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hb7x"]
+bg_color = Color(0.670588, 0.764706, 0.941176, 1)
+
+[node name="Game" type="Node"]
 script = ExtResource("1_kwjqk")
 
 [node name="Background" type="PanelContainer" parent="."]
-layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5njku")
@@ -64,7 +67,7 @@ text = "[center]Point A[/center]"
 scroll_active = false
 
 [node name="BodyPanel" type="PanelContainer" parent="Background/TextContainers/TextPanels"]
-custom_minimum_size = Vector2(0, 450)
+custom_minimum_size = Vector2(0, 480)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h6cyi")
 
@@ -73,7 +76,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 270
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_bottom = 120
 
 [node name="BodyText" type="RichTextLabel" parent="Background/TextContainers/TextPanels/BodyPanel/BodyMargin"]
 layout_mode = 2
@@ -87,9 +90,7 @@ Tommy's voice crackles through the speaker, his urgency palpable.
 \"Well I know what I saw, and now you see it too. I'm going to go down there.\" 
 There was a short pause, before Tommy spoke again.
 \"I have to do this, but just making sure, I won't get fired for this right? If anything happens, you could just write, 'got lost' in your report couldn't you?\" 
-He chuckes, clearly trying to lighten the mood.
-
-"
+He chuckes, clearly trying to lighten the mood."
 scroll_following = true
 
 [node name="PictureContainers" type="MarginContainer" parent="Background"]
@@ -113,6 +114,35 @@ custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gfds6")
 
+[node name="ChoiceMargin" type="MarginContainer" parent="."]
+offset_left = 80.0
+offset_top = 125.0
+offset_right = 1072.0
+offset_bottom = 605.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 355
+theme_override_constants/margin_right = 270
+theme_override_constants/margin_bottom = 20
+
+[node name="ChoiceContainer" type="PanelContainer" parent="ChoiceMargin"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hk222")
+
+[node name="ChoiceButtons" type="VBoxContainer" parent="ChoiceMargin"]
+layout_mode = 2
+
+[node name="ChoiceButton" type="Button" parent="ChoiceMargin/ChoiceButtons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_766o5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6hb7x")
+
+[node name="ChoiceButton2" type="Button" parent="ChoiceMargin/ChoiceButtons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_766o5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6hb7x")
+
 [node name="TextTimer" type="Timer" parent="."]
 wait_time = 0.035
 autostart = true
@@ -120,6 +150,8 @@ autostart = true
 [node name="DotTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Story" parent="." instance=ExtResource("2_j8fbq")]
 
 [connection signal="timeout" from="TextTimer" to="." method="_on_text_timer_timeout"]
 [connection signal="timeout" from="DotTimer" to="." method="_on_dot_timer_timeout"]

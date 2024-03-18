@@ -11,9 +11,12 @@ Taking a seat in front of the old computer, you wait for your shift to officiall
 Suddenly the computer makes a bleep noise.
 “Hi, hello, is anyone there?”"
 choices = Array[String](["Introduce yourself"])
+jumpToNode = "Story/Intro"
+pathNumber = "0"
 
 [node name="Intro" type="Node" parent="."]
 script = ExtResource("1_415g8")
 text = "“Hi, this is Sandra, your new supervisor. Could this be Tommy?”
 “Ah yeah that's me. I’m glad you’re here early. Last guy I was assigned with was an hour late. Not hard to tell why he was replaced.\""
-choices = Array[String](["Get to business (skip intro)", "Ask for details"])
+choices = Array[String](["Ask for details", "Get to business (skip intro)"])
+pathNumber = "1"

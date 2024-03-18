@@ -21,13 +21,13 @@ bg_color = Color(0.454902, 0.658824, 0.494118, 1)
 bg_color = Color(0.854902, 0.823529, 0.737255, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hk222"]
-bg_color = Color(0.45098, 0.596078, 0.87451, 1)
+bg_color = Color(0.439216, 0.47451, 0.54902, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_766o5"]
-bg_color = Color(0.45098, 0.596078, 0.87451, 1)
+bg_color = Color(0.247059, 0.309804, 0.380392, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hb7x"]
-bg_color = Color(0.670588, 0.764706, 0.941176, 1)
+bg_color = Color(0.419608, 0.611765, 0.768627, 1)
 
 [node name="Game" type="Node"]
 script = ExtResource("1_kwjqk")
@@ -134,14 +134,20 @@ layout_mode = 2
 [node name="ChoiceButton" type="Button" parent="ChoiceMargin/ChoiceButtons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_766o5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6hb7x")
+shortcut_feedback = false
+shortcut_in_tooltip = false
 
 [node name="ChoiceButton2" type="Button" parent="ChoiceMargin/ChoiceButtons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_766o5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6hb7x")
+shortcut_feedback = false
+shortcut_in_tooltip = false
 
 [node name="TextTimer" type="Timer" parent="."]
 wait_time = 0.035
@@ -153,5 +159,7 @@ one_shot = true
 
 [node name="Story" parent="." instance=ExtResource("2_j8fbq")]
 
+[connection signal="pressed" from="ChoiceMargin/ChoiceButtons/ChoiceButton" to="." method="_on_choice_button_pressed"]
+[connection signal="pressed" from="ChoiceMargin/ChoiceButtons/ChoiceButton2" to="." method="_on_choice_button_2_pressed"]
 [connection signal="timeout" from="TextTimer" to="." method="_on_text_timer_timeout"]
 [connection signal="timeout" from="DotTimer" to="." method="_on_dot_timer_timeout"]

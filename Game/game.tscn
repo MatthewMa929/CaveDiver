@@ -83,6 +83,7 @@ layout_mode = 2
 theme_override_constants/line_separation = 10
 theme_override_fonts/normal_font = SubResource("SystemFont_e8vuh")
 theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
 text = "\"I don't get it, there shouldn't be anyone else down here.\"
 You stare at the picture you recieved, still in disbelief.
 
@@ -96,8 +97,8 @@ scroll_following = true
 [node name="PictureContainers" type="MarginContainer" parent="Background"]
 layout_mode = 2
 theme_override_constants/margin_left = 850
-theme_override_constants/margin_top = 150
-theme_override_constants/margin_right = 100
+theme_override_constants/margin_top = 170
+theme_override_constants/margin_right = 103
 theme_override_constants/margin_bottom = 0
 
 [node name="PicturePanels" type="VBoxContainer" parent="Background/PictureContainers"]
@@ -105,7 +106,7 @@ layout_mode = 2
 theme_override_constants/separation = 35
 
 [node name="PhotoPanel" type="PanelContainer" parent="Background/PictureContainers/PicturePanels"]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pqsvn")
 
@@ -157,9 +158,14 @@ autostart = true
 wait_time = 0.5
 one_shot = true
 
+[node name="TalkTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [node name="Story" parent="." instance=ExtResource("2_j8fbq")]
 
 [connection signal="pressed" from="ChoiceMargin/ChoiceButtons/ChoiceButton" to="." method="_on_choice_button_pressed"]
 [connection signal="pressed" from="ChoiceMargin/ChoiceButtons/ChoiceButton2" to="." method="_on_choice_button_2_pressed"]
 [connection signal="timeout" from="TextTimer" to="." method="_on_text_timer_timeout"]
 [connection signal="timeout" from="DotTimer" to="." method="_on_dot_timer_timeout"]
+[connection signal="timeout" from="TalkTimer" to="." method="_on_talk_timer_timeout"]

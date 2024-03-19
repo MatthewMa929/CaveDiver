@@ -1,10 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://dloyo66yjhorf"]
+[gd_scene load_steps=3 format=3 uid="uid://dloyo66yjhorf"]
 
 [ext_resource type="Script" path="res://Game/code.gd" id="1_v3vvd"]
+[ext_resource type="Script" path="res://Game/CodeLine.gd" id="2_2s3e8"]
 
 [node name="Code" type="Node2D"]
 script = ExtResource("1_v3vvd")
 
 [node name="CodeBarTimer" type="Timer" parent="."]
+wait_time = 0.8
+
+[node name="Send" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Tutorial" type="Node" parent="."]
+script = ExtResource("2_2s3e8")
+
+[node name="Equpment" type="Node" parent="."]
+script = ExtResource("2_2s3e8")
 
 [connection signal="timeout" from="CodeBarTimer" to="." method="_on_code_bar_timer_timeout"]

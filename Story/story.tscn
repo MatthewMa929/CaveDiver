@@ -17,6 +17,7 @@ pathNumber = "0"
 [node name="Intro" type="Node" parent="."]
 script = ExtResource("1_415g8")
 text = "“Hi, this is Sandra, your new supervisor. Could this be Tommy?”
-“Ah yeah that's me. I’m glad you’re here early. Last guy I was assigned with was an hour late. Not hard to tell why he was replaced.\""
+[i]“Ah yeah that's me. I’m glad you’re here early. Last guy I was assigned with was an hour late. Not hard to tell why he was replaced.\"[/i]
+[i]“Ah yeah that's me. I’m glad you’re here early. Last guy I was assigned with was an hour late. Not hard to tell why he was replaced.\"[/i]"
 choices = Array[String](["Ask for details", "Get to business (skip intro)"])
 pathNumber = "1"

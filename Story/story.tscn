@@ -13,11 +13,130 @@ Suddenly the computer makes a bleep noise.
 choices = Array[String](["Introduce yourself"])
 jumpToNode = "Story/Intro"
 pathNumber = "0"
+type = "text"
 
 [node name="Intro" type="Node" parent="."]
 script = ExtResource("1_415g8")
 text = "“Hi, this is Sandra, your new supervisor. Could this be Tommy?”
-[i]“Ah yeah that's me. I’m glad you’re here early. Last guy I was assigned with was an hour late. Not hard to tell why he was replaced.\"[/i]
-[i]“Ah yeah that's me. I’m glad you’re here early. Last guy I was assigned with was an hour late. Not hard to tell why he was replaced.\"[/i]"
-choices = Array[String](["Ask for details", "Get to business (skip intro)"])
+[i]“Ah yeah that's me. Already liking you more than the old guy, he always came an hour late. Not hard to tell why he was replaced.\"[/i]
+[i]“Just making sure, but since its your first time, is there anything you want to know?\"[/i]"
+choices = Array[String](["Ask for details"])
+jumpToNode = "Story/Intro/AskForDetails"
 pathNumber = "1"
+type = "text"
+
+[node name="AskForDetails" type="Node" parent="Intro"]
+script = ExtResource("1_415g8")
+text = "“You should’ve been filled in by now, but do you know what your job is this time?”
+[i]“Follow your directions and meet my quota for the day, correct?”[/i]
+As expected, the company didn’t fill him in. Probably because they don’t want him worrying over nothing.
+"
+choices = Array[String](["Tell him", "Keep it secret"])
+jumpToNode = "Story/Intro/AskForDetails/TellHim"
+jumpToNode2 = "Story/Intro/AskForDetails/KeepItSecret"
+pathNumber = "2"
+type = "text"
+
+[node name="TellHim" type="Node" parent="Intro/AskForDetails"]
+script = ExtResource("1_415g8")
+text = "Not like I give a rat’s ass what the company wants at this point.
+“Well that and figure out which one of these maps are correct. Strangely there are a few maps of Atlantica cave with some glaring differences.”
+[i]“Wow, some screw-up huh, not new here.”[/i]
+You inwardly agreed.
+[i]“Well, not like I can do anything about that. I just need to know where I’m going. I’ll be relying on you for that, misses…”[/i]
+He already forgot your name! You just hope he can still follow basic directions.
+“Just call me Sandra. You haven’t had any head injuries while working in the cave right?”
+[i]“Oh come on, my head works perfectly fine. Can’t blame me for forgetting a few names, people come and go round here.”[/i]"
+choices = Array[String](["Get to business"])
+jumpToNode = "Story/Start"
+pathNumber = "3.1"
+type = "text"
+
+[node name="KeepItSecret" type="Node" parent="Intro/AskForDetails"]
+script = ExtResource("1_415g8")
+text = "Alright, if that's what the company wants I’ll oblige for now. It’s not like knowing the maps are wrong will do the diver any good.
+“Correct. You should know what you’re doing, since you’ve done this job for a while now.”
+[i]“Eh, just two months, I’m not so experienced as to know where I’m going underwater. I’ll be relying on you for that, misses…”[/i]
+He already forgot your name! You just hope he can still follow basic directions.
+“Just call me Sandra. You haven’t had any head injuries while working in the cave right?”
+[i]“Oh come on, my head works perfectly fine. Can’t blame me for forgetting a few names, people come and go round here.”[/i]
+"
+choices = Array[String](["Get to business"])
+jumpToNode = "Story/Start"
+pathNumber = "3.2"
+type = "text"
+
+[node name="Start" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "“Alright, let’s get to work. Do you know your quota for the day?
+[i]“Yep, same as always, just six rocks and I’m done for the day. [/i]
+By rocks you assume he means the Orichalcum in Atlantica cave, a metal said to have the appearance of gold, but stronger than steel. As far as you know, this cave is the only one that contains it.
+[i]“I’m entering soon, on your signal.”[/i]
+"
+choices = Array[String](["Enter Atlantica"])
+jumpToNode = "Story/Start/Enter"
+pathNumber = "4"
+type = "text"
+
+[node name="Enter" type="Node" parent="Start"]
+script = ExtResource("1_415g8")
+text = "[i]“Sweet, looks like there's ore right near the entrance today. I'll take a picture and then mine it so you can see what it looks like.”[/i]
+“Right at the entrance? Shouldn't you divers have seen that earlier?”
+[i]“The ores come back every so often, maybe once every week.”[/i]
+You furrow your brows with skepticism, you had never heard of ores that could grow back once mined. (New picture! Press P to go through photos!)
+"
+choices = Array[String](["Continue"])
+jumpToNode = "Story/Start/Enter/Continue"
+pathNumber = "-1"
+type = "photo"
+
+[node name="Continue" type="Node" parent="Start/Enter"]
+script = ExtResource("1_415g8")
+text = "“Alright Tommy, I just need to guide you through the cave with the code here right?”
+[i]“Yep, I won’t be able to verbally respond unless I’m above water. Good thing there are plenty of those areas around the cave.”[/i] (Should be a light blue color in the little map you have.)
+You give the sign to dive.
+"
+choices = Array[String](["Start dive"])
+jumpToNode = "Story/Start/Enter/Continue/Dive1"
+pathNumber = "6"
+type = "text"
+
+[node name="Dive1" type="Node" parent="Start/Enter/Continue"]
+script = ExtResource("1_415g8")
+text = "Objectives: 
+Find the correct map (M to switch view)
+Tommy mine 6 ores (1/6)
+Code:
+up = [1, 0, 0, 0]
+down = [1, 0, 1, 0]
+left = [1, 1, 0, 0]
+right = [1, 1, 0, 1]"
+pathNumber = "7"
+type = "dive"
+
+[node name="FaceJoke" type="Node" parent="."]
+script = ExtResource("1_415g8")
+
+[node name="Rocks" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "[i]“You think the O-rich-arocks have any radiation in em?”[/i]
+“O-rich-arocks? You mean Orchirium?”
+[i]“Yea yea that, I hear the word a bunch but I can never get the pronunciation right.”[/i]
+“I was joking earlier, but I really wonder if all of the mining has done some real cognitive damage.”
+[i]“Well, I haven't had any serious injuries yet. Maybe it's the radiation.”[/i]
+"
+pathNumber = "100"
+type = "insert"
+
+[node name="Hint" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "Objectives: 
+Find the correct map (M to switch view)
+Tommy mine 6 ores (1/6)
+Code:
+up = [1, 0, 0, 0]
+down = [1, 0, 1, 0]
+left = [1, 1, 0, 0]
+right = [1, 1, 0, 1]"
+pathNumber = "1000"
+type = "hint"

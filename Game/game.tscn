@@ -1,7 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://cmy37se1eftx5"]
+[gd_scene load_steps=19 format=3 uid="uid://cmy37se1eftx5"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_kwjqk"]
 [ext_resource type="PackedScene" uid="uid://th16pgoey6cn" path="res://Story/story.tscn" id="2_j8fbq"]
+[ext_resource type="Texture2D" uid="uid://igoln0gkandl" path="res://Sprites/ore.png" id="2_x8tux"]
+[ext_resource type="Texture2D" uid="uid://c0gqf4f8bl0gg" path="res://Sprites/face.png" id="3_2yn8o"]
+[ext_resource type="PackedScene" uid="uid://bxrtem6odvnkt" path="res://Game/map.tscn" id="3_lhe3l"]
+[ext_resource type="PackedScene" uid="uid://dloyo66yjhorf" path="res://Game/code.tscn" id="4_i2lnj"]
+[ext_resource type="Texture2D" uid="uid://ggiv761i8gcw" path="res://Sprites/crack.png" id="4_xf1eo"]
+[ext_resource type="Texture2D" uid="uid://cuhbshsfp2nv1" path="res://Sprites/equipment.png" id="5_pb8ny"]
+[ext_resource type="Texture2D" uid="uid://d3e2eqksejcw6" path="res://Sprites/wall.png" id="6_tjkox"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5njku"]
 bg_color = Color(0.0862745, 0.0980392, 0.145098, 1)
@@ -110,10 +117,45 @@ custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pqsvn")
 
+[node name="Ore" type="Sprite2D" parent="Background/PictureContainers/PicturePanels/PhotoPanel"]
+visible = false
+texture = ExtResource("2_x8tux")
+centered = false
+
+[node name="Face" type="Sprite2D" parent="Background/PictureContainers/PicturePanels/PhotoPanel"]
+visible = false
+texture = ExtResource("3_2yn8o")
+centered = false
+
+[node name="Crack" type="Sprite2D" parent="Background/PictureContainers/PicturePanels/PhotoPanel"]
+visible = false
+texture = ExtResource("4_xf1eo")
+centered = false
+
+[node name="Equipment" type="Sprite2D" parent="Background/PictureContainers/PicturePanels/PhotoPanel"]
+visible = false
+texture = ExtResource("5_pb8ny")
+centered = false
+
+[node name="Wall" type="Sprite2D" parent="Background/PictureContainers/PicturePanels/PhotoPanel"]
+visible = false
+texture = ExtResource("6_tjkox")
+centered = false
+
 [node name="MapPanel" type="PanelContainer" parent="Background/PictureContainers/PicturePanels"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gfds6")
+
+[node name="NumberMap" type="RichTextLabel" parent="Background/PictureContainers/PicturePanels/MapPanel"]
+z_index = 2
+z_as_relative = false
+layout_mode = 2
+theme_override_constants/text_highlight_h_padding = 10
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = " 1"
+scroll_active = false
 
 [node name="ChoiceMargin" type="MarginContainer" parent="."]
 offset_left = 80.0
@@ -164,8 +206,24 @@ one_shot = true
 
 [node name="Story" parent="." instance=ExtResource("2_j8fbq")]
 
+[node name="Map" parent="." instance=ExtResource("3_lhe3l")]
+position = Vector2(850, 385)
+scale = Vector2(5, 5)
+
+[node name="Code" parent="." instance=ExtResource("4_i2lnj")]
+
+[node name="Dot" parent="Code" index="2"]
+position = Vector2(160, 506)
+
+[node name="Empty" parent="Code" index="3"]
+position = Vector2(190, 506)
+
 [connection signal="pressed" from="ChoiceMargin/ChoiceButtons/ChoiceButton" to="." method="_on_choice_button_pressed"]
 [connection signal="pressed" from="ChoiceMargin/ChoiceButtons/ChoiceButton2" to="." method="_on_choice_button_2_pressed"]
 [connection signal="timeout" from="TextTimer" to="." method="_on_text_timer_timeout"]
 [connection signal="timeout" from="DotTimer" to="." method="_on_dot_timer_timeout"]
 [connection signal="timeout" from="TalkTimer" to="." method="_on_talk_timer_timeout"]
+[connection signal="code_sent" from="Code" to="Map/SubViewportContainer/CaveView" method="_on_code_code_sent"]
+
+[editable path="Map"]
+[editable path="Code"]

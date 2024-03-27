@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dloyo66yjhorf"]
+[gd_scene load_steps=4 format=3 uid="uid://dloyo66yjhorf"]
 
 [ext_resource type="Script" path="res://Game/code.gd" id="1_v3vvd"]
-[ext_resource type="Script" path="res://Game/CodeLine.gd" id="2_2s3e8"]
+[ext_resource type="Texture2D" uid="uid://bsgrkjrm06jl0" path="res://Sprites/dot.png" id="2_1ycge"]
+[ext_resource type="Texture2D" uid="uid://dpcbsbj2gyg83" path="res://Sprites/empty dot.png" id="3_xbjdp"]
 
 [node name="Code" type="Node2D"]
 script = ExtResource("1_v3vvd")
@@ -13,10 +14,12 @@ wait_time = 0.8
 offset_right = 8.0
 offset_bottom = 8.0
 
-[node name="Tutorial" type="Node" parent="."]
-script = ExtResource("2_2s3e8")
+[node name="Dot" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_1ycge")
 
-[node name="Equpment" type="Node" parent="."]
-script = ExtResource("2_2s3e8")
+[node name="Empty" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_xbjdp")
 
 [connection signal="timeout" from="CodeBarTimer" to="." method="_on_code_bar_timer_timeout"]

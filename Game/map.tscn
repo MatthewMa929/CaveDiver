@@ -1,10 +1,152 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxrtem6odvnkt"]
+[gd_scene load_steps=7 format=3 uid="uid://bxrtem6odvnkt"]
 
-[ext_resource type="Texture2D" uid="uid://d2u0j62devwui" path="res://Sprites/cave_prototype.png" id="1_i03dm"]
+[ext_resource type="Texture2D" uid="uid://e3iycqi7hjom" path="res://Sprites/cave_1.png" id="1_q3sne"]
+[ext_resource type="Texture2D" uid="uid://nkapd7urshok" path="res://Sprites/cave_2.png" id="2_n6f1c"]
+[ext_resource type="Script" path="res://Game/CaveView.gd" id="2_pba63"]
+[ext_resource type="Texture2D" uid="uid://b7egdc8afx34o" path="res://Sprites/cave_3.png" id="3_b0oal"]
+[ext_resource type="Texture2D" uid="uid://dg48uetr5a3hl" path="res://Sprites/Tommy.png" id="3_hyoe1"]
+[ext_resource type="Script" path="res://Game/CodeLine.gd" id="4_x8xdg"]
 
 [node name="Map" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(373.5, 223)
-scale = Vector2(1.46289, 0.871094)
-texture = ExtResource("1_i03dm")
+[node name="Cave1" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_q3sne")
+centered = false
+
+[node name="Cave2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_n6f1c")
+centered = false
+
+[node name="Cave3" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_b0oal")
+centered = false
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+stretch = true
+
+[node name="CaveView" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(40, 40)
+render_target_update_mode = 4
+script = ExtResource("2_pba63")
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/CaveView"]
+
+[node name="View1" type="Sprite2D" parent="SubViewportContainer/CaveView"]
+visible = false
+texture = ExtResource("1_q3sne")
+centered = false
+
+[node name="View2" type="Sprite2D" parent="SubViewportContainer/CaveView"]
+visible = false
+texture = ExtResource("2_n6f1c")
+centered = false
+
+[node name="View3" type="Sprite2D" parent="SubViewportContainer/CaveView"]
+visible = false
+texture = ExtResource("3_b0oal")
+centered = false
+
+[node name="Tommy" type="Sprite2D" parent="SubViewportContainer/CaveView"]
+texture = ExtResource("3_hyoe1")
+
+[node name="Entrance" type="Node2D" parent="."]
+position = Vector2(106, 380)
+script = ExtResource("4_x8xdg")
+text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
+“Right at the entrance? Shouldn't you divers have seen that earlier?”
+[i]“The ores come back every so often, maybe once every week.” [/i]
+You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
+"
+Up = "Int1"
+placeNumber = "0"
+
+[node name="Int1" type="Node2D" parent="."]
+position = Vector2(106, 337)
+script = ExtResource("4_x8xdg")
+text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
+“Right at the entrance? Shouldn't you divers have seen that earlier?”
+[i]“The ores come back every so often, maybe once every week.” [/i]
+You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
+"
+Up = "End"
+Down = "Entrance"
+Left = "End"
+Right = "Int2"
+placeNumber = "1"
+
+[node name="End" type="Node2D" parent="."]
+position = Vector2(77, 289)
+script = ExtResource("4_x8xdg")
+text = "[i]“You think the O-rich-arocks have any radiation in em?”[/i]
+“O-rich-arocks? You mean Orchirium?”
+[i]“Yea yea that, I hear the word a bunch but I can never get the pronunciation right.”[/i]
+“I was joking earlier, but I really wonder if all of the mining has done some real cognitive damage.”
+[i]“Well, I haven't had any serious injuries yet. Maybe it's the radiation.”[/i]
+"
+Down = "Int1"
+placeNumber = "2.1"
+
+[node name="Int2" type="Node2D" parent="."]
+position = Vector2(134, 283)
+script = ExtResource("4_x8xdg")
+text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
+“Right at the entrance? Shouldn't you divers have seen that earlier?”
+[i]“The ores come back every so often, maybe once every week.” [/i]
+You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
+"
+Up = "Int3"
+Down = "Int1"
+placeNumber = "2.2"
+
+[node name="Int3" type="Node2D" parent="."]
+position = Vector2(141, 239)
+script = ExtResource("4_x8xdg")
+text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
+“Right at the entrance? Shouldn't you divers have seen that earlier?”
+[i]“The ores come back every so often, maybe once every week.” [/i]
+You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
+"
+Up = "Trigger1"
+Down = "Int2"
+placeNumber = "3"
+
+[node name="Trigger1" type="Node2D" parent="."]
+position = Vector2(124, 179)
+script = ExtResource("4_x8xdg")
+text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
+“Right at the entrance? Shouldn't you divers have seen that earlier?”
+[i]“The ores come back every so often, maybe once every week.” [/i]
+You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
+"
+Up = "Safe1"
+Down = "Int3"
+Left = "Trigger2"
+placeNumber = "4"
+
+[node name="Trigger2" type="Node2D" parent="."]
+position = Vector2(79, 170)
+script = ExtResource("4_x8xdg")
+text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
+“Right at the entrance? Shouldn't you divers have seen that earlier?”
+[i]“The ores come back every so often, maybe once every week.” [/i]
+You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
+"
+Right = "Trigger1"
+placeNumber = "5"
+
+[node name="Safe1" type="Node2D" parent="."]
+position = Vector2(123, 168)
+script = ExtResource("4_x8xdg")
+text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
+“Right at the entrance? Shouldn't you divers have seen that earlier?”
+[i]“The ores come back every so often, maybe once every week.” [/i]
+You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
+"
+Down = "Trigger1"
+placeNumber = "5"

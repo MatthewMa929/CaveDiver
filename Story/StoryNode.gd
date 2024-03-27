@@ -7,3 +7,4 @@ class_name StoryNode
 @export var jumpToNode:String
 @export var jumpToNode2:String
 @export var pathNumber:String
+@export var type:String

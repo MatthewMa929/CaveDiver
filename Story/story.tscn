@@ -12,8 +12,6 @@ Suddenly the computer makes a bleep noise.
 “Hi, hello, is anyone there?”"
 choices = Array[String](["Introduce yourself"])
 jumpToNode = "Story/Intro"
-pathNumber = "0"
-type = "text"
 
 [node name="Intro" type="Node" parent="."]
 script = ExtResource("1_415g8")
@@ -22,8 +20,6 @@ text = "“Hi, this is Sandra, your new supervisor. Could this be Tommy?”
 [i]“Just making sure, but since its your first time, is there anything you want to know?\"[/i]"
 choices = Array[String](["Ask for details"])
 jumpToNode = "Story/Intro/AskForDetails"
-pathNumber = "1"
-type = "text"
 
 [node name="AskForDetails" type="Node" parent="Intro"]
 script = ExtResource("1_415g8")
@@ -34,8 +30,6 @@ As expected, the company didn’t fill him in. Probably because they don’t wan
 choices = Array[String](["Tell him", "Keep it secret"])
 jumpToNode = "Story/Intro/AskForDetails/TellHim"
 jumpToNode2 = "Story/Intro/AskForDetails/KeepItSecret"
-pathNumber = "2"
-type = "text"
 
 [node name="TellHim" type="Node" parent="Intro/AskForDetails"]
 script = ExtResource("1_415g8")
@@ -49,8 +43,6 @@ He already forgot your name! You just hope he can still follow basic directions.
 [i]“Oh come on, my head works perfectly fine. Can’t blame me for forgetting a few names, people come and go round here.”[/i]"
 choices = Array[String](["Get to business"])
 jumpToNode = "Story/Start"
-pathNumber = "3.1"
-type = "text"
 
 [node name="KeepItSecret" type="Node" parent="Intro/AskForDetails"]
 script = ExtResource("1_415g8")
@@ -63,8 +55,6 @@ He already forgot your name! You just hope he can still follow basic directions.
 "
 choices = Array[String](["Get to business"])
 jumpToNode = "Story/Start"
-pathNumber = "3.2"
-type = "text"
 
 [node name="Start" type="Node" parent="."]
 script = ExtResource("1_415g8")
@@ -75,8 +65,6 @@ By rocks you assume he means the Orichalcum in Atlantica cave, a metal said to h
 "
 choices = Array[String](["Enter Atlantica"])
 jumpToNode = "Story/Start/Enter"
-pathNumber = "4"
-type = "text"
 
 [node name="Enter" type="Node" parent="Start"]
 script = ExtResource("1_415g8")
@@ -87,8 +75,7 @@ You furrow your brows with skepticism, you had never heard of ores that could gr
 "
 choices = Array[String](["Continue"])
 jumpToNode = "Story/Start/Enter/Continue"
-pathNumber = "5.3"
-type = "photo"
+event = "picture"
 
 [node name="Continue" type="Node" parent="Start/Enter"]
 script = ExtResource("1_415g8")
@@ -98,8 +85,6 @@ You give the sign to dive.
 "
 choices = Array[String](["Start dive"])
 jumpToNode = "Story/Start/Enter/Continue/Dive1"
-pathNumber = "6"
-type = "text"
 
 [node name="Dive1" type="Node" parent="Start/Enter/Continue"]
 script = ExtResource("1_415g8")
@@ -112,8 +97,7 @@ up = [1, 0, 0, 0]
 down = [1, 0, 1, 0]
 left = [1, 1, 0, 0]
 right = [1, 1, 0, 1]"
-pathNumber = "7"
-type = "dive"
+event = "dive"
 
 [node name="FaceJoke" type="Node" parent="."]
 script = ExtResource("1_415g8")
@@ -123,8 +107,7 @@ text = "You recieve a photo.
 “I can barely even recognize that it's a face, idiot.”
 [i]“I know you said that because the picture quality is terrible, but you didn’t have to word it like that…”[/i]
 "
-pathNumber = "-1"
-type = "insert"
+event = "dive"
 
 [node name="Rocks" type="Node" parent="."]
 script = ExtResource("1_415g8")
@@ -134,8 +117,7 @@ text = "[i]“You think the O-rich-arocks have any radiation in em?”[/i]
 “I was joking earlier, but I really wonder if all of the mining has done some real cognitive damage.”
 [i]“Well, I haven't had any serious injuries yet. Maybe it's the radiation.”[/i]
 "
-pathNumber = "-2"
-type = "insert"
+event = "dive"
 
 [node name="Hint" type="Node" parent="."]
 script = ExtResource("1_415g8")
@@ -147,8 +129,7 @@ up = [1, 0, 0, 0]
 down = [1, 0, 1, 0]
 left = [1, 1, 0, 0]
 right = [1, 1, 0, 1]"
-pathNumber = "1000"
-type = "hint"
+event = "hint"
 
 [node name="Equipment" type="Node" parent="."]
 script = ExtResource("1_415g8")
@@ -161,13 +142,10 @@ You suspect the person Tommy is looking for could be related to his interest."
 choices = Array[String](["Give the signal to dive", "Ask him"])
 jumpToNode = "Story/Equipment/Dive2"
 jumpToNode2 = "Story/Equipment/AskHim"
-pathNumber = "10"
-type = "photo"
 
 [node name="Dive2" type="Node" parent="Equipment"]
 script = ExtResource("1_415g8")
-pathNumber = "11.1"
-type = "dive"
+event = "dive"
 
 [node name="AskHim" type="Node" parent="Equipment"]
 script = ExtResource("1_415g8")
@@ -178,5 +156,9 @@ You smile at his joke but you weren’t convinced he actually believed that. You
 "
 choices = Array[String](["Give signal to dive"])
 jumpToNode = "Story/Equipment/Dive2"
-pathNumber = "11.2"
-type = "text"
+
+[node name="MeetQuota" type="Node" parent="."]
+script = ExtResource("1_415g8")
+
+[node name="DeadEnd" type="Node" parent="."]
+script = ExtResource("1_415g8")

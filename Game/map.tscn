@@ -20,7 +20,6 @@ texture = ExtResource("2_n6f1c")
 centered = false
 
 [node name="Cave3" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("3_b0oal")
 centered = false
 
@@ -58,95 +57,85 @@ texture = ExtResource("3_hyoe1")
 [node name="Entrance" type="Node2D" parent="."]
 position = Vector2(106, 380)
 script = ExtResource("4_x8xdg")
-text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
-“Right at the entrance? Shouldn't you divers have seen that earlier?”
-[i]“The ores come back every so often, maybe once every week.” [/i]
-You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
-"
 Up = "Int1"
-placeNumber = "0"
+Event = "ore"
 
 [node name="Int1" type="Node2D" parent="."]
 position = Vector2(106, 337)
 script = ExtResource("4_x8xdg")
-text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
-“Right at the entrance? Shouldn't you divers have seen that earlier?”
-[i]“The ores come back every so often, maybe once every week.” [/i]
-You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
-"
-Up = "End"
 Down = "Entrance"
-Left = "End"
+Left = "End1"
 Right = "Int2"
-placeNumber = "1"
 
-[node name="End" type="Node2D" parent="."]
+[node name="End1" type="Node2D" parent="."]
 position = Vector2(77, 289)
 script = ExtResource("4_x8xdg")
-text = "[i]“You think the O-rich-arocks have any radiation in em?”[/i]
-“O-rich-arocks? You mean Orchirium?”
-[i]“Yea yea that, I hear the word a bunch but I can never get the pronunciation right.”[/i]
-“I was joking earlier, but I really wonder if all of the mining has done some real cognitive damage.”
-[i]“Well, I haven't had any serious injuries yet. Maybe it's the radiation.”[/i]
-"
 Down = "Int1"
-placeNumber = "-2.1"
+Event = "deadEnd"
 
 [node name="Int2" type="Node2D" parent="."]
 position = Vector2(134, 283)
 script = ExtResource("4_x8xdg")
-text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
-“Right at the entrance? Shouldn't you divers have seen that earlier?”
-[i]“The ores come back every so often, maybe once every week.” [/i]
-You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
-"
 Up = "Int3"
 Down = "Int1"
-placeNumber = "-2.2"
+Event = "2"
 
 [node name="Int3" type="Node2D" parent="."]
 position = Vector2(141, 239)
 script = ExtResource("4_x8xdg")
-text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
-“Right at the entrance? Shouldn't you divers have seen that earlier?”
-[i]“The ores come back every so often, maybe once every week.” [/i]
-You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
-"
-Up = "Trigger1"
+Up = "Int4"
 Down = "Int2"
-placeNumber = "-3"
+Event = "caved"
+
+[node name="Int4" type="Node2D" parent="."]
+position = Vector2(139, 198)
+script = ExtResource("4_x8xdg")
+Up = "Int5"
+Down = "Int3"
+Left = "Int5"
+Right = "End2"
+
+[node name="End2" type="Node2D" parent="."]
+position = Vector2(164, 165)
+script = ExtResource("4_x8xdg")
+Down = "Int1"
+Event = "veins"
+
+[node name="Int5" type="Node2D" parent="."]
+position = Vector2(126, 153)
+script = ExtResource("4_x8xdg")
+Up = "Trigger1"
+Down = "Int4"
+Left = "Next"
 
 [node name="Trigger1" type="Node2D" parent="."]
-position = Vector2(124, 179)
+position = Vector2(132, 126)
 script = ExtResource("4_x8xdg")
-text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
-“Right at the entrance? Shouldn't you divers have seen that earlier?”
-[i]“The ores come back every so often, maybe once every week.” [/i]
-You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
-"
 Up = "Safe1"
-Down = "Int3"
+Down = "Int5"
 Left = "Trigger2"
-placeNumber = "4"
 
 [node name="Trigger2" type="Node2D" parent="."]
-position = Vector2(79, 170)
+position = Vector2(78, 111)
 script = ExtResource("4_x8xdg")
-text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
-“Right at the entrance? Shouldn't you divers have seen that earlier?”
-[i]“The ores come back every so often, maybe once every week.” [/i]
-You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
-"
 Right = "Trigger1"
-placeNumber = "5"
 
 [node name="Safe1" type="Node2D" parent="."]
-position = Vector2(123, 168)
+position = Vector2(124, 109)
 script = ExtResource("4_x8xdg")
-text = "[i]“Lucky us, looks like there's ore right near the entrance. I'll take a picture and then mine it so you can see what it looks like.”[/i]
-“Right at the entrance? Shouldn't you divers have seen that earlier?”
-[i]“The ores come back every so often, maybe once every week.” [/i]
-You furrow your brows with skepticism, you had never heard of ores that could grow back once mined.
-"
 Down = "Trigger1"
-placeNumber = "5"
+Event = "equipment"
+
+[node name="Next" type="Node2D" parent="."]
+position = Vector2(102, 150)
+script = ExtResource("4_x8xdg")
+Down = "Closed"
+Left = "Closed"
+Right = "Int5"
+Event = "caveIn"
+
+[node name="Closed" type="Node2D" parent="."]
+position = Vector2(77, 185)
+script = ExtResource("4_x8xdg")
+Down = "Trigger1"
+Event = "done"

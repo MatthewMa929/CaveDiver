@@ -26,6 +26,7 @@ var path_arr = [0]
 var bb_num = 0
 var talking = false
 var pic_vis = 0
+var ore_count = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,6 +36,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed("Hint") and curr.type == "dive":
+		newCurr("Story/Hint")
 	if Input.is_action_just_pressed("Action"):
 		char_index = body.text.length()
 	if Input.is_action_just_pressed("Next Picture"):
@@ -46,6 +49,10 @@ func _process(delta):
 	if pic_lst.size() != 0:
 		pic_lst[pic_vis].visible = true
 	number_map.text = " " + str(cave_view.map_vis + 1)
+	
+	if int(cave_view.curr.placeNumber) < 0:
+		pass
+		#newCurr("Story/FaceJoke")
 
 func create_choices():
 	if curr.choices.size() == 1:
@@ -64,24 +71,27 @@ func newCurr(path):
 	button.text = ""
 	button2.text = ""
 	bb_num = 0
+	if curr.type == "text":
+		code.startable = false
 	if curr.type == "dive":
 		start_game()
 	if curr.type == "photo":
-		if curr.pathNumber == "-1":
+		if curr.pathNumber == "5.3":
 			pic_lst.append(ore)
 			title.text = "[center]Atlantica Cave[/center]"
-		if curr.pathNumber == "-2":
+		if curr.pathNumber == "-1":
 			pic_lst.append(face)
-		if curr.pathNumber == "-3":
+		if curr.pathNumber == "-30":
 			pic_lst.append(equipment)
-		if curr.pathNumber == "-4":
+		if curr.pathNumber == "-40":
 			pic_lst.append(crack)
-		if curr.pathNumber == "-5":
+		if curr.pathNumber == "-50":
 			pic_lst.append(wall)
 
 func start_game(): #Switch off text mode and replace UI. Can put a panel that contains the game screen over the text. Buttons will be removed and there will be code instead.
 	#considering making a codeLine script and making a grid so when player walks to location, Tommy will respond
 	code.startable = true
+	char_index = body.text.length()
 	
 func _on_text_timer_timeout():
 	if char_index+1 < body.text.length():

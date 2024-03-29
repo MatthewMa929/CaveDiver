@@ -21,8 +21,7 @@ var down = [1, 0, 1, 0]
 var left = [1, 1, 0, 0]
 var right = [1, 1, 0, 1]
 var stop = [1, 1, 1, 1]
-var ask_state = [1, 0, 0, 1]
-var code_lst = [up, down, left, right, stop, ask_state]
+var code_lst = [up, down, left, right]
 
 #Tommy code
 var okT = [1, 0, 0, 0]
@@ -58,7 +57,6 @@ func _process(delta):
 		code_bar_timer.start()
 		
 	if on and iterator == 4: #Finish
-		print(bar_lst)
 		for i in range(4):
 			dot_lst[i].visible = false
 			empty_lst[i].visible = false

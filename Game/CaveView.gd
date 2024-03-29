@@ -9,6 +9,8 @@ extends SubViewport
 @onready var map_lst = [view1, view2, view3]
 
 var map_vis = 0
+var x_spd = 0
+var y_spd = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,9 +26,9 @@ func _physics_process(delta):
 		i.visible = false
 	map_lst[map_vis].visible = true
 	if tommy.position.y > curr.position.y: #Up
-		tommy.position.y += -.15
+		tommy.position.y += -.15 #(tommy.position.y - curr.position.y)
 	if tommy.position.y < curr.position.y: #Down
-		tommy.position.y += .15
+		tommy.position.y += .15 
 	if tommy.position.x > curr.position.x: #Left
 		tommy.position.x += -.15
 	if tommy.position.x < curr.position.x: #Right
@@ -41,3 +43,5 @@ func _on_code_code_sent(sent):
 		curr = owner.find_child(curr.Left)
 	if curr.Right != "" and sent == "right":
 		curr = owner.find_child(curr.Right)
+	x_spd =	(tommy.position.x - curr.position.x)/100
+	y_spd = (tommy.position.y - curr.position.y)/100

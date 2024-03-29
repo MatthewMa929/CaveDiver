@@ -87,7 +87,7 @@ You furrow your brows with skepticism, you had never heard of ores that could gr
 "
 choices = Array[String](["Continue"])
 jumpToNode = "Story/Start/Enter/Continue"
-pathNumber = "-1"
+pathNumber = "5.3"
 type = "photo"
 
 [node name="Continue" type="Node" parent="Start/Enter"]
@@ -103,10 +103,11 @@ type = "text"
 
 [node name="Dive1" type="Node" parent="Start/Enter/Continue"]
 script = ExtResource("1_415g8")
-text = "Objectives: 
+text = "Objectives: (Press H to see this screen again)
 Find the correct map (M to switch view)
 Tommy mine 6 ores (1/6)
-Code:
+Code: (Press space to enter code)
+Example: down = [space, wait, space, wait]
 up = [1, 0, 0, 0]
 down = [1, 0, 1, 0]
 left = [1, 1, 0, 0]
@@ -116,6 +117,14 @@ type = "dive"
 
 [node name="FaceJoke" type="Node" parent="."]
 script = ExtResource("1_415g8")
+text = "You recieve a photo. 
+\"What did you send me?\"
+[i]“Hey, it's not like there’s any harm to a bit of fun. How do I look, handsome right?”[/i]
+“I can barely even recognize that it's a face, idiot.”
+[i]“I know you said that because the picture quality is terrible, but you didn’t have to word it like that…”[/i]
+"
+pathNumber = "-1"
+type = "insert"
 
 [node name="Rocks" type="Node" parent="."]
 script = ExtResource("1_415g8")
@@ -125,7 +134,7 @@ text = "[i]“You think the O-rich-arocks have any radiation in em?”[/i]
 “I was joking earlier, but I really wonder if all of the mining has done some real cognitive damage.”
 [i]“Well, I haven't had any serious injuries yet. Maybe it's the radiation.”[/i]
 "
-pathNumber = "100"
+pathNumber = "-2"
 type = "insert"
 
 [node name="Hint" type="Node" parent="."]
@@ -133,10 +142,41 @@ script = ExtResource("1_415g8")
 text = "Objectives: 
 Find the correct map (M to switch view)
 Tommy mine 6 ores (1/6)
-Code:
+Code: 
 up = [1, 0, 0, 0]
 down = [1, 0, 1, 0]
 left = [1, 1, 0, 0]
 right = [1, 1, 0, 1]"
 pathNumber = "1000"
 type = "hint"
+
+[node name="Equipment" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "“Hey, check these pictures out.”
+You look through the pictures.
+“Diver equipment. Seems to be pretty old too.”
+“That's strange. Why would the diver leave his equipment here?”
+“I think I’m going to go back and check the area again.”
+You suspect the person Tommy is looking for could be related to his interest."
+choices = Array[String](["Give the signal to dive", "Ask him"])
+jumpToNode = "Story/Equipment/Dive2"
+jumpToNode2 = "Story/Equipment/AskHim"
+pathNumber = "10"
+type = "photo"
+
+[node name="Dive2" type="Node" parent="Equipment"]
+script = ExtResource("1_415g8")
+pathNumber = "11.1"
+type = "dive"
+
+[node name="AskHim" type="Node" parent="Equipment"]
+script = ExtResource("1_415g8")
+text = "“Could it be the person you were looking for?”
+Tommy chuckled.
+“I doubt it, it's probably just some diver that just decided to quit on the spot because of this crappy job.”
+You smile at his joke but you weren’t convinced he actually believed that. You don’t speak further though as you sense it was probably a sensitive topic.
+"
+choices = Array[String](["Give signal to dive"])
+jumpToNode = "Story/Equipment/Dive2"
+pathNumber = "11.2"
+type = "text"

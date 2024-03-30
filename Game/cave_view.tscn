@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://c668nxdr4wn7"]
+
+[ext_resource type="Script" path="res://Game/CaveView.gd" id="1_x015r"]
+[ext_resource type="Texture2D" uid="uid://e3iycqi7hjom" path="res://Sprites/cave_1.png" id="2_30e05"]
+[ext_resource type="Texture2D" uid="uid://nkapd7urshok" path="res://Sprites/cave_2.png" id="3_oimlv"]
+[ext_resource type="Texture2D" uid="uid://b7egdc8afx34o" path="res://Sprites/cave_3.png" id="4_tiey5"]
+[ext_resource type="Texture2D" uid="uid://dg48uetr5a3hl" path="res://Sprites/Tommy.png" id="5_srh4r"]
+
+[node name="CaveView" type="SubViewport"]
+handle_input_locally = false
+size = Vector2i(40, 40)
+render_target_update_mode = 4
+script = ExtResource("1_x015r")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="View1" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_30e05")
+centered = false
+
+[node name="View2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_oimlv")
+centered = false
+
+[node name="View3" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_tiey5")
+centered = false
+
+[node name="Tommy" type="Sprite2D" parent="."]
+texture = ExtResource("5_srh4r")

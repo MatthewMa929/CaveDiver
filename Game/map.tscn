@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://e3iycqi7hjom" path="res://Sprites/cave_1.png" id="1_q3sne"]
 [ext_resource type="Texture2D" uid="uid://nkapd7urshok" path="res://Sprites/cave_2.png" id="2_n6f1c"]
-[ext_resource type="Script" path="res://Game/CaveView.gd" id="2_pba63"]
 [ext_resource type="Texture2D" uid="uid://b7egdc8afx34o" path="res://Sprites/cave_3.png" id="3_b0oal"]
-[ext_resource type="Texture2D" uid="uid://dg48uetr5a3hl" path="res://Sprites/Tommy.png" id="3_hyoe1"]
+[ext_resource type="PackedScene" uid="uid://c668nxdr4wn7" path="res://Game/cave_view.tscn" id="4_mkqc1"]
+[ext_resource type="Texture2D" uid="uid://dx5yd60lhxfx6" path="res://Sprites/cave_4.png" id="4_praio"]
 [ext_resource type="Script" path="res://Game/CodeLine.gd" id="4_x8xdg"]
 
 [node name="Map" type="Node2D"]
@@ -20,7 +20,13 @@ texture = ExtResource("2_n6f1c")
 centered = false
 
 [node name="Cave3" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("3_b0oal")
+centered = false
+
+[node name="RealCave" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_praio")
 centered = false
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -28,31 +34,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 stretch = true
 
-[node name="CaveView" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(40, 40)
-render_target_update_mode = 4
-script = ExtResource("2_pba63")
-
-[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/CaveView"]
-
-[node name="View1" type="Sprite2D" parent="SubViewportContainer/CaveView"]
-visible = false
-texture = ExtResource("1_q3sne")
-centered = false
-
-[node name="View2" type="Sprite2D" parent="SubViewportContainer/CaveView"]
-visible = false
-texture = ExtResource("2_n6f1c")
-centered = false
-
-[node name="View3" type="Sprite2D" parent="SubViewportContainer/CaveView"]
-visible = false
-texture = ExtResource("3_b0oal")
-centered = false
-
-[node name="Tommy" type="Sprite2D" parent="SubViewportContainer/CaveView"]
-texture = ExtResource("3_hyoe1")
+[node name="CaveView" parent="SubViewportContainer" instance=ExtResource("4_mkqc1")]
 
 [node name="Entrance" type="Node2D" parent="."]
 position = Vector2(106, 380)
@@ -78,7 +60,6 @@ position = Vector2(134, 283)
 script = ExtResource("4_x8xdg")
 Up = "Int3"
 Down = "Int1"
-Event = "2"
 
 [node name="Int3" type="Node2D" parent="."]
 position = Vector2(141, 239)
@@ -88,7 +69,7 @@ Down = "Int2"
 Event = "caved"
 
 [node name="Int4" type="Node2D" parent="."]
-position = Vector2(139, 198)
+position = Vector2(134, 193)
 script = ExtResource("4_x8xdg")
 Up = "Int5"
 Down = "Int3"
@@ -96,17 +77,18 @@ Left = "Int5"
 Right = "End2"
 
 [node name="End2" type="Node2D" parent="."]
-position = Vector2(164, 165)
+position = Vector2(167, 176)
 script = ExtResource("4_x8xdg")
-Down = "Int1"
-Event = "veins"
+Down = "Int4"
+Left = "Int4"
+Event = "face"
 
 [node name="Int5" type="Node2D" parent="."]
 position = Vector2(126, 153)
 script = ExtResource("4_x8xdg")
 Up = "Trigger1"
 Down = "Int4"
-Left = "Next"
+Left = "Closed"
 
 [node name="Trigger1" type="Node2D" parent="."]
 position = Vector2(132, 126)
@@ -124,18 +106,17 @@ Right = "Trigger1"
 position = Vector2(124, 109)
 script = ExtResource("4_x8xdg")
 Down = "Trigger1"
-Event = "equipment"
-
-[node name="Next" type="Node2D" parent="."]
-position = Vector2(102, 150)
-script = ExtResource("4_x8xdg")
-Down = "Closed"
-Left = "Closed"
-Right = "Int5"
-Event = "caveIn"
+Event = "crack"
 
 [node name="Closed" type="Node2D" parent="."]
 position = Vector2(77, 185)
 script = ExtResource("4_x8xdg")
-Down = "Trigger1"
-Event = "done"
+Up = "Int5"
+Right = "Int5"
+Event = "equipment"
+
+[node name="Through" type="Node2D" parent="."]
+position = Vector2(125, 80)
+script = ExtResource("4_x8xdg")
+
+[editable path="SubViewportContainer/CaveView"]

@@ -19,6 +19,8 @@ extends Node
 @onready var crack = $Background/PictureContainers/PicturePanels/PhotoPanel/Crack
 @onready var equipment = $Background/PictureContainers/PicturePanels/PhotoPanel/Equipment
 @onready var wall = $Background/PictureContainers/PicturePanels/PhotoPanel/Wall
+@onready var secret = $Background/PictureContainers/PicturePanels/PhotoPanel/Secret
+@onready var cave_enter = $Background/PictureContainers/PicturePanels/PhotoPanel/CaveEnter
 @onready var pic_lst = []
 
 var char_index = 0
@@ -36,8 +38,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("Hint") and curr.type == "dive":
-		newCurr("Story/Hint")
 	if Input.is_action_just_pressed("Action"):
 		char_index = body.text.length()
 	if Input.is_action_just_pressed("Next Picture"):
@@ -50,9 +50,30 @@ func _process(delta):
 		pic_lst[pic_vis].visible = true
 	number_map.text = " " + str(cave_view.map_vis + 1)
 	
-	if int(cave_view.curr.placeNumber) < 0:
-		pass
-		#newCurr("Story/FaceJoke")
+	if cave_view.hit_wall and "DeadEnd" not in path_arr:
+		newCurr("Story/DeadEnd")
+		cave_view.hit_wall = false
+	if cave_view.curr.Event == "caved" and cave_view.near == cave_view.curr and "Rocks" not in path_arr:
+		newCurr("Story/Rocks")
+	if cave_view.curr.Event == "face" and cave_view.near == cave_view.curr and "Face" not in path_arr:
+		newCurr("Story/Face")
+	if cave_view.curr.Event == "equipment" and cave_view.near == cave_view.curr and "Equipment" not in path_arr:
+		newCurr("Story/Equipment")
+	if (cave_view.curr.Event == "caved" and cave_view.near == cave_view.curr and "Done" in path_arr) and "CaveIn" not in path_arr:
+		newCurr("Story/CaveIn")
+	if cave_view.curr.Event == "crack" and cave_view.near == cave_view.curr and "Crack" not in path_arr:
+		newCurr("Story/Crack")
+	if cave_view.curr.Event == "crack" and cave_view.near == cave_view.curr and "CaveIn" in path_arr and "ReachEnd" not in path_arr:
+		newCurr("Story/ReachEnd")
+	if curr.event == "dive" and "Face" in path_arr and "Crack" in path_arr and "Rocks" in path_arr and "Equipment" in path_arr and "Done" not in path_arr:
+		newCurr("Story/Done")
+	if Input.is_action_just_pressed("Hint"):
+		newCurr("Story/InCrack")
+		var closeOff = map.get_node("Int3")
+		closeOff.Down = ""
+	if cave_view.curr.Event == "InCrack":
+		var posNode = map.get_node("Through")
+		cave_view.tommy.position = posNode.position
 
 func create_choices():
 	if curr.choices.size() == 1:
@@ -63,7 +84,7 @@ func create_choices():
 
 func newCurr(path):
 	curr = get_node(path)
-	path_arr.append(curr.pathNumber)
+	path_arr.append(curr.name)  
 	char_index = 0
 	text_timer.start()
 	body.text = curr.text
@@ -71,27 +92,26 @@ func newCurr(path):
 	button.text = ""
 	button2.text = ""
 	bb_num = 0
-	if curr.type == "text":
+	if curr.event == "dive":
+		code.startable = true
+		char_index = body.text.length()
+	else:
 		code.startable = false
-	if curr.type == "dive":
-		start_game()
-	if curr.type == "photo":
-		if curr.pathNumber == "5.3":
-			pic_lst.append(ore)
-			title.text = "[center]Atlantica Cave[/center]"
-		if curr.pathNumber == "-1":
-			pic_lst.append(face)
-		if curr.pathNumber == "-30":
-			pic_lst.append(equipment)
-		if curr.pathNumber == "-40":
-			pic_lst.append(crack)
-		if curr.pathNumber == "-50":
-			pic_lst.append(wall)
-
-func start_game(): #Switch off text mode and replace UI. Can put a panel that contains the game screen over the text. Buttons will be removed and there will be code instead.
-	#considering making a codeLine script and making a grid so when player walks to location, Tommy will respond
-	code.startable = true
-	char_index = body.text.length()
+	if curr.event == "ore" and ore not in pic_lst:
+		pic_lst.append(ore)
+		title.text = "[center]Atlantica Cave[/center]"
+	if curr.event == "face" and face not in pic_lst:
+		pic_lst.append(face)
+	if curr.event == "equipment" and equipment not in pic_lst:
+		pic_lst.append(equipment)
+	if curr.event == "crack" and crack not in pic_lst:
+		pic_lst.append(crack)
+	if curr.event == "wall" and wall not in pic_lst:
+		pic_lst.append(wall)
+	if curr.event == "secret" and secret not in pic_lst:
+		pic_lst.append(secret)
+	if curr.event == "cave_enter" and cave_enter not in pic_lst:
+		pic_lst.append(cave_enter)
 	
 func _on_text_timer_timeout():
 	if char_index+1 < body.text.length():

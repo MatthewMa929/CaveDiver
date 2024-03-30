@@ -4,7 +4,8 @@
 
 [node name="Story" type="Node"]
 script = ExtResource("1_415g8")
-text = "What kind of relocation is this…
+text = "(Press Space to skip loading words)
+What kind of relocation is this…
 You step into a run down room with generic company posters, random boxes and a computer.
 You sigh, but resign yourself to your new position. “I had guessed I was getting demoted, but this is just ridiculous.” 
 Taking a seat in front of the old computer, you wait for your shift to officially start while you take sips of your coffee. 
@@ -13,25 +14,47 @@ Suddenly the computer makes a bleep noise.
 choices = Array[String](["Introduce yourself"])
 jumpToNode = "Story/Intro"
 
+[node name="Dive" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "Objectives: (Press H to see this screen again)
+Find the correct map (M to switch view)
+Tommy reaches his quota
+Code: (Press space to enter code)
+Example: down = [space, wait, space, wait]
+up = [1, 0, 0, 0]
+down = [1, 0, 1, 0]
+left = [1, 1, 0, 0]
+right = [1, 1, 0, 1]"
+event = "dive"
+
 [node name="Intro" type="Node" parent="."]
 script = ExtResource("1_415g8")
 text = "“Hi, this is Sandra, your new supervisor. Could this be Tommy?”
 [i]“Ah yeah that's me. Already liking you more than the old guy, he always came an hour late. Not hard to tell why he was replaced.\"[/i]
-[i]“Just making sure, but since its your first time, is there anything you want to know?\"[/i]"
-choices = Array[String](["Ask for details"])
-jumpToNode = "Story/Intro/AskForDetails"
+“Just making sure, but since its my first time, is there anything I should know?\""
+choices = Array[String](["Continue"])
+jumpToNode = "Story/Intro/Asked"
 
-[node name="AskForDetails" type="Node" parent="Intro"]
+[node name="Asked" type="Node" parent="Intro"]
+script = ExtResource("1_415g8")
+text = "[i]\"Uhh yea, my name is Tommy, I'm 25 years old, got a bit of claustrophobia-\"[/i]
+\"Not about you. I'm talking about the job.\"
+[i]\"Ohh yea, sorry my bad.\"[/i]
+Tommy just laughs it off, but you make a mental note."
+choices = Array[String](["Ask for details"])
+jumpToNode = "Story/Intro/Asked/AskForDetails"
+
+[node name="AskForDetails" type="Node" parent="Intro/Asked"]
 script = ExtResource("1_415g8")
 text = "“You should’ve been filled in by now, but do you know what your job is this time?”
 [i]“Follow your directions and meet my quota for the day, correct?”[/i]
 As expected, the company didn’t fill him in. Probably because they don’t want him worrying over nothing.
 "
 choices = Array[String](["Tell him", "Keep it secret"])
-jumpToNode = "Story/Intro/AskForDetails/TellHim"
-jumpToNode2 = "Story/Intro/AskForDetails/KeepItSecret"
+jumpToNode = "Story/Intro/Asked/AskForDetails/TellHim"
+jumpToNode2 = "Story/Intro/Asked/AskForDetails/KeepItSecret"
 
-[node name="TellHim" type="Node" parent="Intro/AskForDetails"]
+[node name="TellHim" type="Node" parent="Intro/Asked/AskForDetails"]
 script = ExtResource("1_415g8")
 text = "Not like I give a rat’s ass what the company wants at this point.
 “Well that and figure out which one of these maps are correct. Strangely there are a few maps of Atlantica cave with some glaring differences.”
@@ -44,7 +67,7 @@ He already forgot your name! You just hope he can still follow basic directions.
 choices = Array[String](["Get to business"])
 jumpToNode = "Story/Start"
 
-[node name="KeepItSecret" type="Node" parent="Intro/AskForDetails"]
+[node name="KeepItSecret" type="Node" parent="Intro/Asked/AskForDetails"]
 script = ExtResource("1_415g8")
 text = "Alright, if that's what the company wants I’ll oblige for now. It’s not like knowing the maps are wrong will do the diver any good.
 “Correct. You should know what you’re doing, since you’ve done this job for a while now.”
@@ -75,7 +98,7 @@ You furrow your brows with skepticism, you had never heard of ores that could gr
 "
 choices = Array[String](["Continue"])
 jumpToNode = "Story/Start/Enter/Continue"
-event = "picture"
+event = "ore"
 
 [node name="Continue" type="Node" parent="Start/Enter"]
 script = ExtResource("1_415g8")
@@ -84,30 +107,19 @@ text = "“Alright Tommy, I just need to guide you through the cave with the cod
 You give the sign to dive.
 "
 choices = Array[String](["Start dive"])
-jumpToNode = "Story/Start/Enter/Continue/Dive1"
+jumpToNode = "Story/Dive"
 
-[node name="Dive1" type="Node" parent="Start/Enter/Continue"]
+[node name="Face" type="Node" parent="."]
 script = ExtResource("1_415g8")
-text = "Objectives: (Press H to see this screen again)
-Find the correct map (M to switch view)
-Tommy mine 6 ores (1/6)
-Code: (Press space to enter code)
-Example: down = [space, wait, space, wait]
-up = [1, 0, 0, 0]
-down = [1, 0, 1, 0]
-left = [1, 1, 0, 0]
-right = [1, 1, 0, 1]"
-event = "dive"
-
-[node name="FaceJoke" type="Node" parent="."]
-script = ExtResource("1_415g8")
-text = "You recieve a photo. 
+text = "You recieve a photo. (Press P)
 \"What did you send me?\"
 [i]“Hey, it's not like there’s any harm to a bit of fun. How do I look, handsome right?”[/i]
 “I can barely even recognize that it's a face, idiot.”
 [i]“I know you said that because the picture quality is terrible, but you didn’t have to word it like that…”[/i]
 "
-event = "dive"
+choices = Array[String](["Continue dive"])
+jumpToNode = "Story/Dive"
+event = "face"
 
 [node name="Rocks" type="Node" parent="."]
 script = ExtResource("1_415g8")
@@ -117,48 +129,464 @@ text = "[i]“You think the O-rich-arocks have any radiation in em?”[/i]
 “I was joking earlier, but I really wonder if all of the mining has done some real cognitive damage.”
 [i]“Well, I haven't had any serious injuries yet. Maybe it's the radiation.”[/i]
 "
-event = "dive"
-
-[node name="Hint" type="Node" parent="."]
-script = ExtResource("1_415g8")
-text = "Objectives: 
-Find the correct map (M to switch view)
-Tommy mine 6 ores (1/6)
-Code: 
-up = [1, 0, 0, 0]
-down = [1, 0, 1, 0]
-left = [1, 1, 0, 0]
-right = [1, 1, 0, 1]"
-event = "hint"
+choices = Array[String](["Continue dive"])
+jumpToNode = "Story/Dive"
+event = "rocks"
 
 [node name="Equipment" type="Node" parent="."]
 script = ExtResource("1_415g8")
-text = "“Hey, check these pictures out.”
+text = "[i]“Hey, check these pictures out.”[/i]
 You look through the pictures.
-“Diver equipment. Seems to be pretty old too.”
+[i]“Diver equipment. Seems to be pretty old too.”[/i]
 “That's strange. Why would the diver leave his equipment here?”
-“I think I’m going to go back and check the area again.”
-You suspect the person Tommy is looking for could be related to his interest."
-choices = Array[String](["Give the signal to dive", "Ask him"])
-jumpToNode = "Story/Equipment/Dive2"
+[i]“I think I’m going to go back and check the area again.”[/i]"
+choices = Array[String](["Give the signal to dive", "Ask him about it"])
+jumpToNode = "Story/Dive"
 jumpToNode2 = "Story/Equipment/AskHim"
-
-[node name="Dive2" type="Node" parent="Equipment"]
-script = ExtResource("1_415g8")
-event = "dive"
+event = "equipment"
 
 [node name="AskHim" type="Node" parent="Equipment"]
 script = ExtResource("1_415g8")
-text = "“Could it be the person you were looking for?”
+text = "“You think its a missing diver?”
 Tommy chuckled.
 “I doubt it, it's probably just some diver that just decided to quit on the spot because of this crappy job.”
-You smile at his joke but you weren’t convinced he actually believed that. You don’t speak further though as you sense it was probably a sensitive topic.
+You smile at his joke but you weren’t convinced he actually believed that. 
 "
 choices = Array[String](["Give signal to dive"])
-jumpToNode = "Story/Equipment/Dive2"
+jumpToNode = "Story/Dive"
 
-[node name="MeetQuota" type="Node" parent="."]
+[node name="Crack" type="Node" parent="."]
 script = ExtResource("1_415g8")
+text = "[i]\"Sandra, I just took the most terrying picture.\"[/i]
+Curiously you check your album. 
+\"A hole in the wall?\"
+[i]\"That is not just a hole, it looks like the entrance to hell!\"[/i]
+You had to admit it, the hole was a bit creepy.
+\"Claustrophobia does that huh.\"
+[i]\"Well I'm the one doing the actual exploring, you wouldn't get it.\"[/i]"
+choices = Array[String](["Dive"])
+jumpToNode = "Story/Dive"
+event = "crack"
+
+[node name="Done" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "“Alright, that’s the quota. We’re done for the day, unless you want to enjoy swimming a bit longer.”
+[i]“Ha ha, good one. Like I’d want to stick around this miserable cave. I’ve heard some divers like their job, but I doubt that’s actually true.”[/i]
+\"I mean you guys are contracted, so might as well stay sane while doing it. Stockholm syndrome maybe?\"
+[i]\"Don't know what that is and not going to ask, I'm just going to get outta here.\"[/i]"
+choices = Array[String](["Guide Tommy out"])
+jumpToNode = "Story/Dive"
+event = "done"
 
 [node name="DeadEnd" type="Node" parent="."]
 script = ExtResource("1_415g8")
+text = "[i]\"Something wrong with your map? I can't go there.\"[/i] (Press M to swap map, no one map is always correct.)"
+choices = Array[String](["Continue dive"])
+jumpToNode = "Story/Dive"
+event = "tutorial"
+
+[node name="CaveIn" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "[i]“Hey, just me or was this wall not here earlier?”[/i]
+What wall? You realize quickly that the only path Tommy had out was closed. You hastily speak but still keep your calm.
+“Tommy, get away from there first. Did you hear any rumbling or loud noises? Don’t panic, but I think it could’ve been a cave-in.”
+[i]“Crap, that is really bad news. Any other way to leave?”[/i]
+"
+choices = Array[String](["Look for another way to leave", "Call for a rescue team"])
+jumpToNode = "Story/CaveIn/Look"
+jumpToNode2 = "Story/CaveIn/Rescue"
+event = "wall"
+
+[node name="Look" type="Node" parent="CaveIn"]
+script = ExtResource("1_415g8")
+text = "“Let's go deeper into the cave. Maybe we haven’t checked all of it yet.”
+[i]”Sounds like a plan. Well, the best we can do in this situation. Let’s face it, I’d rather believe that I could dig my way out than trust that the company could or rather would get me out of here.”[/i]
+You feel some of the tension disappearing, probably due to a plan being decided on or maybe Tommy’s joking tone in this dire situation.
+"
+choices = Array[String](["Dive"])
+jumpToNode = "Story/Dive"
+
+[node name="Rescue" type="Node" parent="CaveIn"]
+script = ExtResource("1_415g8")
+text = "“Not going to lie to you, that was probably the only way out. I’ll contact my manager about it and he’ll send over a rescue team. Just stay put for now.”
+[i]“Crap, I don’t know, I got a bad feeling about all of this. The idea of sitting around and trusting the company for help sounds horrifying. You sure there’s not another way out?”[/i]
+"
+choices = Array[String](["Assure him this is the best way", "Change your mind"])
+jumpToNode = "Story/BadEnd"
+jumpToNode2 = "Story/CaveIn/Look"
+
+[node name="BadEnd" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "After deciding Tommy is stuck with no way out, you relay the situation to the manager. After requesting for help the manager tells you that this happens once in a while. They would be sending a rescue team soon, once they have the people for it. 
+After some talking, Tommy seemed to be fine, but he would have to stay there without food or water overnight. At least that’s what you thought. 
+"
+choices = Array[String](["Continue"])
+jumpToNode = "Story/BadEnd/ContBad"
+
+[node name="ContBad" type="Node" parent="BadEnd"]
+script = ExtResource("1_415g8")
+text = "You were promptly removed from your position as they said they would have someone on the rescue team to talk to Tommy. Still, you kept a close eye on the situation. No help came after a day. Then it was two. By then Tommy didn’t have the energy to even enter the water again. You desperately fought with the manager, but he persistently said there was nothing he could do. Another was lost in Atlantica cave. "
+choices = Array[String](["Restart from beginning", "Restart from cave in"])
+jumpToNode = "Story"
+jumpToNode2 = "Story/CaveIn"
+
+[node name="ReachEnd" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "[i]“Crap, I think I checked everything. You were right, there’s no way out.”[/i]
+You rack your mind for any way you get Tommy out. At this rate it seemed the wisest option was to contact the company and trust in them to handle it. Then you thought of something.
+“Wait, Tommy. Remember that crack you found earlier?”
+[i]”The one I took a picture of? Yea, do you think it could get me out? I doubt it leads anywhere good.”[/i]
+"
+choices = Array[String](["Ask Tommy to go through crack", "Opt to call company instead"])
+jumpToNode = "Story/ReachEnd/AskTommy"
+jumpToNode2 = "Story/BadEnd"
+
+[node name="AskTommy" type="Node" parent="ReachEnd"]
+script = ExtResource("1_415g8")
+text = "“I don’t know, but it could be our best bet right now. I think you should go through it.”
+Tommy doesn’t respond. Some silence goes by until Tommy speaks again.
+[i]”I know it’s better than sitting around, but I can’t. There’s just no way I can go through.”[/i]
+“Why not? You said you don’t trust the company.”
+Silence again. 
+[i]”It’s not gonna lead anywhere. I didn’t say this before, but the diver that left his equipment here is probably dead. If he didn’t come back for it, that's the only explanation.”[/i]
+You recall Tommy mentioning his claustrophobia, but you felt his reasons could be more complicated.
+"
+choices = Array[String](["Try to find out why"])
+jumpToNode = "Story/ReachEnd/AskTommy/Found"
+
+[node name="Found" type="Node" parent="ReachEnd/AskTommy"]
+script = ExtResource("1_415g8")
+text = "You recall how he reacted to the diver equipment.
+\"Looking for someone Tommy? You think they could've went through?\"
+[i]\"Wha- how did you know?\"[/i]
+\"I've been around longer than you, your story isn't so uncommon around here.\"
+You wait for Tommy to speak."
+choices = Array[String](["Wait"])
+jumpToNode = "Story/ReachEnd/AskTommy/Found/Reveal"
+
+[node name="Reveal" type="Node" parent="ReachEnd/AskTommy/Found"]
+script = ExtResource("1_415g8")
+text = "[i]“My brother. He lost his life at this same job.”[/i]
+The sound of the water dripping from the rocks resounded clearly throughout the cave. 
+“So you're just going to give up? Not even find out whether or not he's alive?”
+Tommy chuckled, pained.
+“He can't be alive. You probably don’t believe the words yourself, I think it's time I move on and face reality.”
+"
+choices = Array[String](["Agree", "Disagree"])
+jumpToNode = "Story/ReachEnd/AskTommy/Found/Reveal/Agree"
+jumpToNode2 = "Story/ReachEnd/AskTommy/Found/Reveal/Disagree"
+
+[node name="Agree" type="Node" parent="ReachEnd/AskTommy/Found/Reveal"]
+script = ExtResource("1_415g8")
+text = "You sigh, feeling a sense of emptiness as you agree with Tommy.
+“You’re right, it would be selfish of me to ask you to go in there while I sit on my chair anyways.”
+[i]“Sorry to be such a downer, it really does give me a bad feeling though. We'll keep looking for now, and you can ask the company for help if it looks bad.[/i]
+"
+choices = Array[String](["Continue"])
+jumpToNode = "Story/BadEnd"
+
+[node name="Disagree" type="Node" parent="ReachEnd/AskTommy/Found/Reveal"]
+script = ExtResource("1_415g8")
+text = "“I didn’t take you as such a moron.”
+You feel a surge of anger and disappointment towards Tommy.
+[i]“Giving up here means that you would have to live with that decision for the rest of your life.”[/i]
+As you speak, you find yourself raising your voice, almost to a yell.
+“Isn't this what you came here for?!\"
+You stop to catch your breath, feeling a bit of guilt for attacking Tommy with what he shared with you.
+“Look I-”
+“Agh!”
+You hear a clap and a yell, then Tommy finally responds.
+“You're right, I’m going. I didn’t do all of this just to back out when it gets scary.”
+"
+choices = Array[String](["Encourage"])
+jumpToNode = "Story/ReachEnd/AskTommy/Found/Reveal/Disagree/TommyGo"
+
+[node name="TommyGo" type="Node" parent="ReachEnd/AskTommy/Found/Reveal/Disagree"]
+script = ExtResource("1_415g8")
+text = "\"You got this Tommy, for your brother.\"
+[i]\"Yea, yea, I got it.\"[/i]
+Tommy drops off some of his equipment so he can fit. You hear Tommy take a deep breath before he enters."
+choices = Array[String](["Tommy Enters"])
+jumpToNode = "Story/InCrack"
+
+[node name="InCrack" type="Node" parent="."]
+script = ExtResource("1_415g8")
+text = "[i]\"Crap, I don't think I'll be able to talk to you much while I'm in here.\"[/i]
+You realize you can't help Tommy much here.
+\"I don't think I can help you Tommy, the map doesn't cover this area.\"
+[i]\"All I need is another person right now, I can barely see anything down here. I'll be relyin on you to keep me sane.\"[/i]
+You think about whether or not you made the right choice before Tommy cuts off your thoughts.
+[i]\"Lets have a chat about the past. I bet you're curious.\"[/i]"
+choices = Array[String](["Ask"])
+jumpToNode = "Story/InCrack/Family"
+event = "hidden"
+
+[node name="Fear" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "You hear the sound of Tommy entering the water and his breathing through the mask. You can tell he's afraid. So are you, with your heart jumping at every new sound you hear. "
+choices = Array[String](["Continue"])
+jumpToNode = "Story/InCrack/Area"
+
+[node name="Area" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "You hear the sound of Tommy resurfacing.
+[i]\"Whoa, that is some heavy water.\"[/i]
+He probably means that the water around the area is harder to swim in.
+\"Glad you're finding your way around at least.\" 
+[i]\"Yea somehow. You know those roots we saw earlier? I've been following them,\"[/i]
+You think back to the eeire roots in the photo Tommy sent you.
+"
+choices = Array[String](["Encourage him to follow them", "Discourage him from following them"])
+jumpToNode = "Story/InCrack/Area/Encourage"
+jumpToNode2 = "Story/InCrack/Area/Discourage"
+
+[node name="Encourage" type="Node" parent="InCrack/Area"]
+script = ExtResource("1_415g8")
+text = "Maybe the roots lead to some kind of life, that couldn't be bad right?
+\"Follow it, if it's a tree then there should be some sunlight.\"
+[i]\"Aye aye, I'll try not to lose track of them. I'm going back in.\"[/i]"
+choices = Array[String](["Dive"])
+jumpToNode = "Story/InCrack/Empty"
+
+[node name="Discourage" type="Node" parent="InCrack/Area"]
+script = ExtResource("1_415g8")
+text = "You had a bad feeling about the roots, following them just felt wrong to you. 
+\"Tommy, don't. Just try to loop back to get near the place we entered from. Maybe you can find another exit from there.\"
+[i]\"I'll try, but I can barely see around here. It'll probably be a while till you hear from me again.\"[/i]"
+choices = Array[String](["Dive"])
+jumpToNode = "Story/InCrack/Empty2"
+
+[node name="Fork" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "[i]\"Crap, I thought I was going to die from exhaustion. This water just gets heavier.\"[/i]
+\"Are you still trailing the roots?\"
+[i]\"Yep, I can see them getting larger too.\"[/i]
+\"Probably means you're getting near the source.\"
+[i]\"Yea, I think so too, but the roots split off now. I'll take a picture. Hopefully its not too grainy for you to see.\"[/i]
+"
+choices = Array[String](["Recommend the cave path", "Recommend the water path"])
+jumpToNode = "Story/InCrack/CaveEnter"
+jumpToNode2 = "Story/InCrack/BadEnd2"
+
+[node name="Empty" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "You hear Tommy re-enter the water. All you can hear after that is Tommy's quick breathing."
+choices = Array[String](["Continue"])
+jumpToNode = "Story/InCrack/Fork"
+event = "empty"
+
+[node name="Empty2" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "You hear Tommy re-enter the water. All you can hear after that is Tommy's quick breathing."
+choices = Array[String](["Continue"])
+jumpToNode = "Story/InCrack/Empty2/Rise"
+event = "empty"
+
+[node name="Rise" type="Node" parent="InCrack/Empty2"]
+script = ExtResource("1_415g8")
+text = "You hear Tommy get out of the water.
+\"You ok?\"
+[i]\"Yea. . .  Just need to catch my breath. That water is no joke, its like I'm swimming in mud.\"[/i]
+\"Best if you stay on land then\"
+[i]\"Yea, hopefully this path leads somewhere.\"[/i]
+You hear Tommy knock on something.
+"
+choices = Array[String](["Continue"])
+jumpToNode = "Story/InCrack/Blocked"
+
+[node name="CaveEnter" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "You see that the roots probably come from the tunnel.
+\"Take the tunnel Tommy, that way we can talk to each other. Just watch out in front of you.\"
+[i]\"Got it.\"[/i]
+Tommy lets out a sigh.
+[i]\"I do not get a good feeling about this though...\"[/i]
+Although you agreed, you were curious."
+choices = Array[String](["Continue"])
+jumpToNode = "Story/InCrack/CaveEnter/Secret"
+
+[node name="Secret" type="Node" parent="InCrack/CaveEnter"]
+script = ExtResource("1_415g8")
+text = "You hear Tommy shuffle forward, his relucatance clear through the sound of his movements. Suddenly he yells.
+[i]\"I see light! I'm getting outta here!\"[/i]
+\"Wai-\"
+Before you speak, Tommy was already sprinting. Then he suddenly stops. 
+[i]\"Aghh! What the hell is that?!\"[/i]
+\"Tommy! What do you see? Are you ok?\"
+[i]\"Get away from me! Nooo!\"[/i]
+Your heart is beating out of your chest. Tommy's screams become muffled, and then stop. You hear sounds not from Tommy, but instead the sounds of something slithering against the rocks. 
+As you slump back into your seat, you recieve a new photo. Whether or not Tommy had meant to take it was unclear, but it was something you would remember for the rest of your life.  BAD END 4."
+choices = Array[String](["Back to beginning", "Return to Tommy entering crack"])
+jumpToNode = "Story"
+jumpToNode2 = "Story/InCrack"
+event = "secret"
+
+[node name="BadEnd2" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "\"Go through the water Tommy, theres more risk involved if you travel on land.\"
+[i]\"True, its so dark that even with my light I could end up twisting my ankle somewhere.\"[/i]
+You hear Tommy start to get back into the water.
+[i]\"I'm pretty tired, but taking a long break might hurt more than help, I'm starving over here.\"[/i]
+You check the time. It's been around 10 hours since Tommy entered the cave. You're going to work overtime today.
+\"Good luck Tommy, follow the roots back here if you get too exhausted.\""
+choices = Array[String](["Continue"])
+jumpToNode = "Story/InCrack/BadEnd2/Continue"
+
+[node name="Continue" type="Node" parent="InCrack/BadEnd2"]
+script = ExtResource("1_415g8")
+text = "You hear Tommy re-enter the water. 
+Minutes pass, then it was an hour. Tommy's breathing started to slow. You hoped it was because he was calmer now, but then two hours passed. You no longer heard Tommy, or anything at all. BAD END 2"
+choices = Array[String](["Back to the beginning", "Back to Tommy entering crack"])
+jumpToNode = "Story"
+jumpToNode2 = "Story/InCrack"
+event = "ending"
+
+[node name="Blocked" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "[i]\"Hey, I got some good news and some bad news.\"[/i]
+\"Bad news first please.\"
+[i]\"Uhh, I'll say the good news first so its easier to explain. Well, I think I see sunlight. Bad news is though, its mostly blocked. This time by the roots.\"[/i]
+\"Can't you shove them aside?\"
+[i]\"Well I guess I could try to hack through them, or maybe I should look around some more. There could be another way.\"[/i]"
+choices = Array[String](["Hack through them", "Find another way"])
+jumpToNode = "Story/InCrack/Blocked/BadEnd3"
+jumpToNode2 = "Story/InCrack/Blocked/AnotherWay"
+
+[node name="BadEnd3" type="Node" parent="InCrack/Blocked"]
+script = ExtResource("1_415g8")
+text = "You hear Tommy hack at the roots before he yells.
+[i]\"I see light! I'm getting outta here!\"[/i]
+\"Wai-\"
+Before you speak, Tommy was already sprinting. Then he suddenly stops. 
+[i]\"Aghh! What the hell is that?!\"[/i]
+\"Tommy! What do you see? Are you ok?\"
+[i]\"Get away from me! Nooo!\"[/i]
+Your heart is beating out of your chest. Tommy's screams become muffled, and then stop. You hear sounds not from Tommy, but instead the sounds of something slithering against the rocks. 
+As you slump back into your seat, you recieve a new photo. Whether or not Tommy had meant to take it was unclear, but it was something you would remember for the rest of your life. BAD END 3."
+choices = Array[String](["Restart from beginning", "Restart from Tommy entering the crack"])
+jumpToNode = "Story"
+jumpToNode2 = "Story/InCrack"
+event = "secret"
+
+[node name="AnotherWay" type="Node" parent="InCrack/Blocked"]
+script = ExtResource("1_415g8")
+text = "You realize these roots are highly unusual. They stretch through the entire cave, and you don't want Tommy to take the risk of messing with it.
+\"Nice. If you see sunlight, you should be close to an exit. Just look around a bit longer.\"
+[i]\"Ok, will do. I'm just running a bit low on fumes right now so let me take a break.\"[/i]
+"
+choices = Array[String](["Take a break"])
+jumpToNode = "Story/InCrack/Talk"
+
+[node name="Closing" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "Suddenly you hear noises as if something was slithering across the rocks of the cave. 
+\"Hey Tommy, what's going on!?\"
+[i]\"I- I have no clue, the roots are moving!\"[/i]
+You knew the roots were abnormal, but you were still shocked by Tommy's words. Still your shock quickly turned into hastiness.
+\"Hurry! Tommy, get away from there!\"
+You hear a thump.
+[i]\"Crap! The walls are closing in! I'm getting sealed in here!\"[/i]
+As if you were struck by deja vu, you flip through your photos. The cave in!"
+choices = Array[String](["Tell Tommy"])
+jumpToNode = "Story/InCrack/Closing/Tell"
+
+[node name="Tell" type="Node" parent="InCrack/Closing"]
+script = ExtResource("1_415g8")
+text = "\"Tommy! The roots are the problem!\"
+[i]\"Huh?! What is that supposed to mean?\"[/i]
+\"Hit the roots! At their origin!\"
+Tommy picks up his pickaxe and starts swinging at the roots. After a few minutes Tommy stops to catch his breath.
+[i]\"Agh! I think I'm getting through! The wall is clearing!\"[/i]
+"
+choices = Array[String](["Continue"])
+jumpToNode = "Story/InCrack/Closing/Tell/GoodEnd"
+
+[node name="GoodEnd" type="Node" parent="InCrack/Closing/Tell"]
+script = ExtResource("1_415g8")
+text = "\"Alright! Tommy keep it up!\"
+[i]\"The roots! They're leaving!\"[/i]
+Before you can celebrate, you hear a loud rumbling noise. 
+\"Hey! Tommy, what's happening?\"
+[i]\"Crap! The ceiling! It's falling!\"[/i]
+Your heart sinks. The roots must've been holding the ceiling up! You yell words of encouragement and worry to Tommy, but there is no response."
+choices = Array[String](["Continue"])
+jumpToNode = "Story/InCrack/Closing/Tell/GoodEnd/TrueEnd"
+
+[node name="TrueEnd" type="Node" parent="InCrack/Closing/Tell/GoodEnd"]
+script = ExtResource("1_415g8")
+text = "Before you started to mourn, you suddenly heard breathing. Although quiet, it was there. 
+It was too late in the night to get a rescue team from the company so you call the police. 
+You guide them with your knowledge of the general direction Tommy headed towards. Tommy was eventually found. And he was alive! "
+choices = Array[String](["Continue"])
+jumpToNode = "Story/InCrack/Closing/Tell/GoodEnd/TrueEnd/FinalWords"
+
+[node name="FinalWords" type="Node" parent="InCrack/Closing/Tell/GoodEnd/TrueEnd"]
+script = ExtResource("1_415g8")
+text = "Tommy was pardoned from his contract and was able to return to his family. 
+Meanwhile, you left the company and with Tommy, you revealed what you both found in that cave. Turns out the company had knew all along but kept it secret because of the cave's value. The company was promptly shut down, and the cave was subdued. Good End!"
+choices = Array[String](["Restart from beginning", "Go back to enter crack"])
+jumpToNode = "Story"
+jumpToNode2 = "Story/InCrack"
+event = "ending"
+
+[node name="Talk" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "[i]\"Mann, I could really use some beer right now.\"[/i]
+You assume this is Tommy's way of keeping his mind out of the uncertainty of the area. 
+[i]\"You know the bar a few streets down from headquarters?”[/i]
+You think about the last time you’ve been there. Back then you had just started your job, excited and optimistic about the future.
+[i]\"We should go there and have a chat after all of this, you know, as new coworkers. And of course, getting out of this mess\"[/i]"
+choices = Array[String](["Accept", "Decline"])
+jumpToNode = "Story/InCrack/Talk/Accept"
+jumpToNode2 = "Story/InCrack/Talk/Decline"
+
+[node name="Accept" type="Node" parent="InCrack/Talk"]
+script = ExtResource("1_415g8")
+text = "Going out with coworkers was a rare occasion for you, and never with someone you had just met. Still, you felt that it was right to accept Tommy's request.
+“That sounds great. I need some time to get my demotion out of my mind anyways.”
+[i]“Haha, I knew you had some partying in ya. It's the ones that work the hardest that party the hardest too.”[/i]
+You had some doubts about that, it’s been years since you had some proper fun.
+“Alright let’s get you out of here first.”"
+choices = Array[String](["Finish break"])
+jumpToNode = "Story/InCrack/Closing"
+
+[node name="Decline" type="Node" parent="InCrack/Talk"]
+script = ExtResource("1_415g8")
+text = "“Eh I don’t know, it’s been a long time since the last time I drank.”
+[i]“Haha, worried you’ll be a party killer? Don’t worry, everyone is rowdy when drunk.\"[/i]
+You don't really think it's a good idea to go out to a bar with someone you barely know, even if Tommy does seem like a upstanding guy. 
+“Alright I’ll think about it, let’s get you out of here first.”
+"
+choices = Array[String](["Finish break"])
+jumpToNode = "Story/InCrack/Closing"
+
+[node name="Family" type="Node" parent="InCrack"]
+script = ExtResource("1_415g8")
+text = "\"So, whats the story with your brother? You don't need to talk about it if you don't want to.\"
+[i]\"He used to work here, he started when the company was still young. Back then, I don’t think it was so bad, he would come back often and tell us the crazy things he discovered.”[/i]
+Sounds like a farcry from the company we have now. 
+[i]\"After I found out I could only enter the mines if I worked here, I took the job impulsively. And now I’m stuck here, by contract.”[/i]
+"
+choices = Array[String](["Reveal your story", "Make a joke"])
+jumpToNode = "Story/InCrack/Family/YourStory"
+jumpToNode2 = "Story/InCrack/Family/YourJoke"
+
+[node name="YourStory" type="Node" parent="InCrack/Family"]
+script = ExtResource("1_415g8")
+text = "\"My story and yours aren't so different.\"
+Tommy waited for you to continue.
+\"Me and a friend, we were both from an orphanage. Both of us joined the company, with different positions. One day she disappeared.\"
+[i]\"So you snooped around and got demoted huh.\"[/i]
+\"Yep, but I don't regret a thing.\"
+[i]\"Thanks for telling me. Somehow, I feel a bit more ready for this. I'm going. Hopefully talk to you later\"[/i]"
+choices = Array[String](["Dive"])
+jumpToNode = "Story/InCrack/Fear"
+
+[node name="YourJoke" type="Node" parent="InCrack/Family"]
+script = ExtResource("1_415g8")
+text = "\"At least the pay is good, your family might change their mind after seeing all that wealth from finishing your contract.\"
+[i]\"If that was your attempt at joking or lightening the mood, I appreciate it, but leave it to me please. [/i]
+His reaction gets a chuckle out of you.
+[i]\"Ok thanks for the talk, I'm going now. Hopefully I'll talk to you later.\"[/i]"
+choices = Array[String](["Dive"])
+jumpToNode = "Story/InCrack/Fear"

@@ -11,6 +11,8 @@ extends SubViewport
 var map_vis = 0
 var x_spd = 0
 var y_spd = 0
+var near = curr
+var hit_wall = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,15 +35,20 @@ func _physics_process(delta):
 		tommy.position.x += -.15
 	if tommy.position.x < curr.position.x: #Right
 		tommy.position.x += .15
+	if ((abs(tommy.position.x - curr.position.x) < 0.3) and (abs(tommy.position.y - curr.position.y) < 0.3)):		
+		near = curr
 
 func _on_code_code_sent(sent):
 	if curr.Up != "" and sent == "up":
 		curr = owner.find_child(curr.Up)
-	if curr.Down != "" and sent == "down":
+	elif curr.Down != "" and sent == "down":
 		curr = owner.find_child(curr.Down)
-	if curr.Left != "" and sent == "left":
+	elif curr.Left != "" and sent == "left":
 		curr = owner.find_child(curr.Left)
-	if curr.Right != "" and sent == "right":
+	elif curr.Right != "" and sent == "right":
 		curr = owner.find_child(curr.Right)
+	else:
+		hit_wall = true
+	
 	x_spd =	(tommy.position.x - curr.position.x)/100
 	y_spd = (tommy.position.y - curr.position.y)/100

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cmy37se1eftx5"]
+[gd_scene load_steps=21 format=3 uid="uid://cmy37se1eftx5"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_kwjqk"]
 [ext_resource type="PackedScene" uid="uid://th16pgoey6cn" path="res://Story/story.tscn" id="2_j8fbq"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://ggiv761i8gcw" path="res://Sprites/crack.png" id="4_xf1eo"]
 [ext_resource type="Texture2D" uid="uid://cuhbshsfp2nv1" path="res://Sprites/equipment.png" id="5_pb8ny"]
 [ext_resource type="Texture2D" uid="uid://d3e2eqksejcw6" path="res://Sprites/wall.png" id="6_tjkox"]
+[ext_resource type="Texture2D" uid="uid://ewmhcocdwkc4" path="res://Sprites/secret.png" id="7_ljnee"]
+[ext_resource type="Texture2D" uid="uid://cvy4k4m4a6ai0" path="res://Sprites/cave_enter.png" id="8_l1a2k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5njku"]
 bg_color = Color(0.0862745, 0.0980392, 0.145098, 1)
@@ -142,6 +144,16 @@ visible = false
 texture = ExtResource("6_tjkox")
 centered = false
 
+[node name="Secret" type="Sprite2D" parent="Background/PictureContainers/PicturePanels/PhotoPanel"]
+visible = false
+texture = ExtResource("7_ljnee")
+centered = false
+
+[node name="CaveEnter" type="Sprite2D" parent="Background/PictureContainers/PicturePanels/PhotoPanel"]
+visible = false
+texture = ExtResource("8_l1a2k")
+centered = false
+
 [node name="MapPanel" type="PanelContainer" parent="Background/PictureContainers/PicturePanels"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
@@ -226,4 +238,5 @@ position = Vector2(190, 506)
 [connection signal="code_sent" from="Code" to="Map/SubViewportContainer/CaveView" method="_on_code_code_sent"]
 
 [editable path="Map"]
+[editable path="Map/SubViewportContainer/CaveView"]
 [editable path="Code"]
